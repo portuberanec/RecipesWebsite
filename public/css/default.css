@@ -1,0 +1,22 @@
+html {
+    --container: 1440px;
+    --padding-container: 10px;
+    box-sizing:border-box;
+    /* position: relative;
+    overflow-x: hidden; */
+}
+
+*, *:before, *:after {
+    box-sizing:inherit;
+}
+
+body {
+    font-family: Inter, sans-serif;
+}
+
+.container {
+    max-width: calc(var(--container) + (var(--padding-container) * 2));
+    padding: 0 var(--padding-container);
+    margin: 0 auto;
+    text-align: center;
+}
