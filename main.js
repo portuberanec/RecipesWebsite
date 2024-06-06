@@ -27,6 +27,16 @@ let STRArray = STR.split(" - ");
 const RetArray = STRArray;
   //  console.log(STR.slice(0, STR.indexOf(' -')));   // выводим считанные данные
 
+// нужно создать объект, который будет считывать файл и в цикле в него будут записываться определённые данные типа наименования, 
+
+var RecipeParams = {
+    Title: "",
+    Author: "",
+    IMG: "",
+    EnergyValue: "",
+    Ingredients: "",
+    Sequence: "",
+};
 
 for (let i = 0; i < STRArray.length - 1; i = i + 2) {
     app.get(RetArray[i], (_, res) => {
