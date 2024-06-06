@@ -13,4 +13,8 @@ app.get('/', (_, res) => {
     res.render('index')
 })
 
+app.get('/breakfast', (req, res) => {
+    res.render('breakfast.handlebars')
+})
+
 app.listen(3000, () => console.log('Server started'))
