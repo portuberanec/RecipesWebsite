@@ -1,3 +1,61 @@
+<head>
+    <style>
+        .container {
+            display: flex;
+        }
+        .sidebar {
+            width: 200px;
+            padding: 20px;
+            border-right: 1px solid #000;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .header, .footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #000;
+        }
+        .header {
+            border-bottom: 1px solid #000;
+        }
+        .footer {
+            border-top: 1px solid #000;
+        }
+        .search, .categories {
+            margin-bottom: 20px;
+        }
+        .categories ul {
+            list-style: none;
+            padding: 0;
+        }
+        .categories ul li {
+            margin-bottom: 10px;
+        }
+        .recipe {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .recipe > div {
+            border: 1px solid #000;
+            box-sizing: border-box;
+            margin: 5px;
+            padding: 10px;
+        }
+        .title, .author, .subscribe, .description, .steps {
+            width: 100%;
+        }
+        .image, .ingredients, .nutrition {
+            width: 48%;
+        }
+        .steps, .description {
+            width: 100%;
+        }
+    </style>
+</head>
+
     <!-- Верхний колонтитул сайта -->
     <div class="header">
         <div>
