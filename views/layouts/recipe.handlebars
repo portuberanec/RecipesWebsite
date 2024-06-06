@@ -7,11 +7,36 @@
     <link rel="stylesheet" type="text/css" href="css/recipe.css">
 </head>
 <body>
+       <div class="header">
+        <div>
+            <a href="/">
+                <img src="home-icon.png" alt="Главная" width="30" height="30"> <!-- Значок "Домой" -->
+            </a>
+            <span>Кулинарные рецепты</span>
+        </div>
+        <div>
+            <a href="profile.html">
+                <img src="user-icon.png" alt="Профиль">
+            </a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Боковое меню с поиском и категориями -->
+        <div class="sidebar">
+            <div class="search">
+                <label for="search">Поиск</label>
+                <input type="text" id="search">
+            </div>
+            <div class="categories">
+                <label for="categories">Категории</label>
+                <ul>
+                    <li><a href="breakfast">-Завтрак</a></li>
+                    <li><a href="lunch">-Обед</a></li>
+                    <li><a href="dinner">-Ужин</a></li>
+                </ul>
+            </div>
+        </div>
     {{{body}}}
-      <header>
-        <img src="home_icon.png" alt="Главная" width="30" height="30"> <!-- Значок "Домой" -->
-        <h1>{{png1}}</h1> <!-- Название сайта -->
-        <img src="profile_icon.png" alt="Профиль" width="30" height="30"> <!-- Значок "Профиль" -->
-    </header>
 </body>
 </html>
