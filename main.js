@@ -9,12 +9,12 @@ app.set('views', './views')
 
 app.use(express.static('public'));
 
-app.get('/', (_, res) => {
-    res.render('index')
+app.get('/', (_, res, next) => {
+    res.render('index', {layout: 'main'})
 })
 
-app.get('/breakfast', (req, res) => {
-    res.render('breakfast.handlebars')
+app.get('/breakfast', (req, res, next) => {
+    res.render('breakfast.handlebars', {layout: 'recipe'})
 })
 
 app.listen(3000, () => console.log('Server started'))

@@ -1,7 +1,67 @@
 @import 'normalize.css';
 @import 'fonts.css';
-/*@import 'default.css';*/
+/*@import 'default.css';
 @import 'header.css';
 @import 'body.css';
-@import 'category.css';
+@import 'category.css';*/
 
+body {
+    font-family: Inter, sans-serif;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+header, nav, main {
+    border: 1px solid black;
+    padding: 10px;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+nav {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Стили для представления контента */
+.content {
+    display: flex;
+}
+.sidebar {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+.main-content {
+    flex-grow: 1;
+}
+.top-5 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+.recipe {
+    display: flex;
+    margin-bottom: 10px;
+}
+.recipe img {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+}
+.recipe div {
+    display: flex;
+    flex-direction: column;
+}
+.recipe h3 {
+    margin-top: 5px; /* Отступ сверху для заголовка */
+    text-align: center; /* Выравнивание заголовка по центру */
+}
