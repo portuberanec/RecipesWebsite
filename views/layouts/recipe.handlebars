@@ -37,6 +37,64 @@
                 </ul>
             </div>
         </div>
+        <!-- Основное содержание страницы рецепта -->
+        <div class="content">
+            <div class="recipe">
+                <!-- Название блюда -->
+                <div class="title">
+                    <h1>{{RecipeParams.Title}}</h1>
+                </div>
+                
+                <!-- Контактная информация автора -->
+                <div class="author">
+                    <p>{{RecipeParams.Author}}</p>
+                </div>
+                
+                <!-- Кнопка подписаться -->
+                <div class="subscribe">
+                    <button>Подписаться</button>
+                </div>
+                
+                <!-- Блок изображения или видео, подключить src и в него добавить параметр {{RecipeParams.IMG}} -->
+                <div class="image">
+                    <img src={{RecipeParams.IMG}}>
+                </div>
+                
+                <!-- Блок энергетической ценности, нужен цикл -->
+                <div class="nutrition">
+                    <h2>Энергетическая ценность</h2>
+                    <ul>
+                        {{#each RecipeParams.EnergyValue}}
+                        <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                
+                <!-- Блок ингредиентов, нужен цикл -->
+                <div class="ingredients">
+                    <h2>Ингредиенты</h2>
+                    <ul>
+                        {{#each RecipeParams.Ingredients}}
+                        <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                
+                <!-- Описание рецепта -->
+                <div class="description">
+                    <h2>Описание</h2>
+                </div>
+                
+                <!-- Последовательность действий, нужен цикл -->
+                <div class="steps">
+                    <h2>Последовательность</h2>
+                    {{#each RecipeParams.Sequence}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
     {{{body}}}
 </body>
 </html>

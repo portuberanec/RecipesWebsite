@@ -29,18 +29,35 @@ const RetArray = STRArray;
 
 // нужно создать объект, который будет считывать файл и в цикле в него будут записываться определённые данные типа наименования, 
 
-var RecipeParams = {
-    Title: "",
-    Author: "",
-    IMG: "",
-    EnergyValue: "",
-    Ingredients: "",
-    Sequence: "",
-};
+
+
 
 for (let i = 0; i < STRArray.length - 1; i = i + 2) {
+    const RecipeBaseData = fs.readFileSync("./public/local/" + RetArray[i+1] + "/BaseInfo.txt", 'utf-8');
+
+    let RecipeBaseArray = RecipeBaseData.split("\r\n");
+    console.log(RecipeBaseArray);
+    
+    const RecipeIngredData = fs.readFileSync("./public/local/" + RetArray[i+1] + "/Ingred.txt", 'utf-8');
+    
+    let RecipeIngredArray = RecipeIngredData.split("\r\n");
+    console.log(RecipeIngredArray);
+    
+    const RecipeSeqData = fs.readFileSync("./public/local/" + RetArray[i+1] + "/Seq.txt", 'utf-8');
+    
+    let RecipeSeqArray = RecipeSeqData.split("\r\n");
+    console.log(RecipeSeqArray);
+    
+    var RecipeParams = {
+        Title: RecipeBaseArray[0],
+        Author: RecipeBaseArray[1],
+        IMG: RecipeBaseArray[2],
+        EnergyValue: [RecipeBaseArray[3], RecipeBaseArray[4], RecipeBaseArray[5], RecipeBaseArray[6]],
+        Ingredients: RecipeIngredArray,
+        Sequence: RecipeSeqArray,
+    };
     app.get(RetArray[i], (_, res) => {
-        res.render(RetArray[i+1], {layout: 'recipe', png1: 1})
+        res.render(RetArray[i+1], {layout: 'recipe', RecipeParams})
     })
     //console.log(RetArray[i]);
 }
