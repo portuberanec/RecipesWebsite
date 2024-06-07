@@ -16,7 +16,7 @@ app.get('/', (_, res) => {
 })
 
 // чтение файла со всеми страницами и передача запроса для отображения страницы
-const data = fs.readFileSync("C:/Github/RecipesWebsite/public/Webpages_info.txt", 'utf-8');
+const data = fs.readFileSync("./public/Webpages_info.txt", 'utf-8');
 let STR = data.toString();
 STR = STR.replace("\r\n", " - ");
 let STRArray = STR.split(" - ");
