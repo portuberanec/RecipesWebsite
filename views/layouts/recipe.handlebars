@@ -31,9 +31,9 @@
             <div class="categories">
                 <label for="categories">Категории</label>
                 <ul>
-                    <li><a href="breakfast">-Завтрак</a></li>
-                    <li><a href="lunch">-Обед</a></li>
-                    <li><a href="dinner">-Ужин</a></li>
+                {{#each WebPagesArray}}
+                    <li><a href={{this}}>{{this}}</a></li>
+                {{/each}}
                 </ul>
             </div>
         </div>
