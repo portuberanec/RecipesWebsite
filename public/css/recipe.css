@@ -3,14 +3,26 @@
 
 body {
     font-family: Inter, sans-serif;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; /* Центрирование содержимого по горизонтали */
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0; /* Фон для наглядности */
 }
 .container {
     display: flex;
+    width: 100%; 
+    max-width: 1200px; /* Максимальная ширина контейнера */
+    margin: 20px 0; /* Отступы сверху и снизу */
+    border: 1px solid #000; /* Граница для наглядности */
+    background-color: #fff; /* Фон для наглядности */
 }
 .sidebar {
     width: 200px;
     padding: 20px;
     border-right: 1px solid #000;
+    background-color: #e0e0e0; /* Фон для наглядности */
 }
 .content {
     flex-grow: 1;
@@ -21,6 +33,9 @@ body {
     justify-content: space-between;
     padding: 10px;
     border-bottom: 1px solid #000;
+    width: 100%; 
+    max-width: 1200px; /* Максимальная ширина контейнера */
+    background-color: #fff; /* Фон для наглядности */
 }
 .header {
     border-bottom: 1px solid #000;
@@ -47,6 +62,7 @@ body {
     box-sizing: border-box;
     margin: 5px;
     padding: 10px;
+    background-color: #f9f9f9; /* Фон для наглядности */
 }
 .title, .author, .subscribe, .description, .steps {
     width: 100%;

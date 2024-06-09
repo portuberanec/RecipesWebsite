@@ -9,7 +9,10 @@ body {
     font-family: Inter, sans-serif;
     display: flex;
     flex-direction: column;
-    margin: 0;
+    margin: 0 auto;
+    width: 100%; 
+    max-width: 1280px;
+    background-color: #f0f0f0; /* Фон для наглядности */
 }
 header, nav, main {
     border: 1px solid black;
@@ -19,6 +22,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #fff; /* Фон для наглядности */
 }
 nav {
     display: flex;
@@ -34,28 +38,40 @@ main {
 /* Стили для представления контента */
 .content {
     display: flex;
+    justify-content: center;
 }
 .sidebar {
     width: 200px;
     display: flex;
     flex-direction: column;
     margin-right: 10px;
+    background-color: #e0e0e0; /* Фон для наглядности */
 }
 .main-content {
     flex-grow: 1;
+}
+.container {
+    min-width: 300px; /* Минимальная ширина контейнера */
+    min-height: 200px; /* Минимальная высота контейнера */
+    border: 1px solid #000; /* Граница для наглядности */
+    margin: 0 auto; /* Центрирование контейнера по горизонтали */
+    background-color: #fff; /* Фон для наглядности */
 }
 .top-5 {
     text-align: center;
     margin-bottom: 10px;
 }
 .recipe {
+    text-align: center;
     display: flex;
     margin-bottom: 10px;
+    justify-content: center;
+    background-color: #f9f9f9; /* Фон для наглядности */
 }
 .recipe img {
     width: 100px;
     height: 100px;
-    margin-right: 10px;
+    margin-right: 50px;
 }
 .recipe div {
     display: flex;
