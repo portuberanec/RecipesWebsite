@@ -15,7 +15,7 @@ app.use(express.static('public'));
 // чтение файла со всеми страницами и передача запроса для отображения страницы
 const data = fs.readFileSync("./public/Webpages_info.txt", 'utf-8');
 let STR = data.toString();
-STR = STR.replace("\r\n", " - ");
+STR = STR.replace(/\r\n/g, " - ");
 let STRArray = STR.split(" - ");
 /*STRArray.forEach(element => {
     console.log(element);
@@ -26,9 +26,9 @@ const RecipeParamsArray = [];
 const WebPagesArray = [];
   //  console.log(STR.slice(0, STR.indexOf(' -')));   // выводим считанные данные
 
-// нужно создать объект, который будет считывать файл и в цикле в него будут записываться определённые данные типа наименования, 
 
-// желательно переписать, потому что походу цикл отрабатывает каждый раз при обновлении страницы
+  function UpdateData () {
+
 for (let i = 0; i < STRArray.length - 1; i = i + 2) {
     const RecipeBaseData = fs.readFileSync("./public/local/" + RetArray[i+1] + "/BaseInfo.txt", 'utf-8');
 
@@ -58,14 +58,17 @@ for (let i = 0; i < STRArray.length - 1; i = i + 2) {
     WebPagesArray.push(STRArray[i+1]);
     //console.log(RetArray[i]);
 }
+}
 
 for (let i = 0; i < STRArray.length - 1; i = i + 2) {
     app.get(RetArray[i], (req, res) => {
     res.render(RetArray[i+1], {layout: 'recipe', RecipeParams: RecipeParamsArray[i/2], WebPagesArray});
     //console.log(req);
-    console.log(RecipeParamsArray, i);
+    //console.log(RecipeParamsArray, i);
 })
 }
+
+UpdateData();
 
 app.get('/', (_, res) => {
     res.render('index', {layout: 'main', WebPagesArray})
