@@ -15,7 +15,6 @@ body {
     background-color: #f0f0f0; /* Фон для наглядности */
 }
 header, nav, main {
-    border: 1px solid black;
     padding: 10px;
 }
 header {
@@ -53,7 +52,6 @@ main {
 .container {
     min-width: 300px; /* Минимальная ширина контейнера */
     min-height: 200px; /* Минимальная высота контейнера */
-    border: 1px solid #000; /* Граница для наглядности */
     margin: 0 auto; /* Центрирование контейнера по горизонтали */
     background-color: #fff; /* Фон для наглядности */
 }

@@ -15,13 +15,11 @@ body {
     width: 100%; 
     max-width: 1200px; /* Максимальная ширина контейнера */
     margin: 20px 0; /* Отступы сверху и снизу */
-    border: 1px solid #000; /* Граница для наглядности */
     background-color: #fff; /* Фон для наглядности */
 }
 .sidebar {
     width: 200px;
     padding: 20px;
-    border-right: 1px solid #000;
     background-color: #e0e0e0; /* Фон для наглядности */
 }
 .content {
@@ -32,7 +30,6 @@ body {
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    border-bottom: 1px solid #000;
     width: 100%; 
     max-width: 1200px; /* Максимальная ширина контейнера */
     background-color: #fff; /* Фон для наглядности */
@@ -58,7 +55,6 @@ body {
     flex-wrap: wrap;
 }
 .recipe > div {
-    border: 1px solid #000;
     box-sizing: border-box;
     margin: 5px;
     padding: 10px;
