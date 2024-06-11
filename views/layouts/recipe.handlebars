@@ -8,12 +8,10 @@
 </head>
 <body>
        <div class="header">
-        <div>
             <a href="/">
                 <img src="home-icon.png" alt="Главная" width="30" height="30"> <!-- Значок "Домой" -->
             </a>
             <span>Кулинарные рецепты</span>
-        </div>
         <div>
             <a href="profile.html">
                 <img src="user-icon.png" alt="Профиль">
@@ -41,18 +39,16 @@
         <div class="content">
             <div class="recipe">
                 <!-- Название блюда -->
-                <div class="title">
-                    <h1>{{RecipeParams.Title}}</h1>
-                </div>
-                
-                <!-- Контактная информация автора -->
-                <div class="author">
-                    <p>{{RecipeParams.Author}}</p>
-                </div>
-                
-                <!-- Кнопка подписаться -->
-                <div class="subscribe">
-                    <button>Подписаться</button>
+                <div class = "BaseInfo">
+                    <div class = "title">
+                        <h1 id = "TitleInput">{{RecipeParams.Title}}</h1>
+                    </div>
+                    <div class="subscribe">
+                        <!-- Контактная информация автора -->
+                        <span class="author">{{RecipeParams.Author}}</span>
+                        <!-- Кнопка подписаться -->
+                        <button>Подписаться</button>
+                    </div>
                 </div>
                 
                 <!-- Блок изображения или видео, подключить src и в него добавить параметр {{RecipeParams.IMG}} -->
@@ -63,7 +59,7 @@
                 <!-- Блок энергетической ценности, нужен цикл -->
                 <div class="nutrition">
                     <h2>Энергетическая ценность</h2>
-                    <ul>
+                    <ul id = "NutritionListInput">
                         {{#each RecipeParams.EnergyValue}}
                         <li>{{this}}</li>
                         {{/each}}
@@ -73,7 +69,7 @@
                 <!-- Блок ингредиентов, нужен цикл -->
                 <div class="ingredients">
                     <h2>Ингредиенты</h2>
-                    <ul>
+                    <ul id = "IngredientsListInput">
                         {{#each RecipeParams.Ingredients}}
                         <li>{{this}}</li>
                         {{/each}}
@@ -83,13 +79,15 @@
                 <!-- Описание рецепта -->
                 <div class="description">
                     <h2>Описание</h2>
+                    {{RecipeParams.Desctiption}}
                 </div>
                 
                 <!-- Последовательность действий, нужен цикл -->
-                <div class="steps">
+                <div class="steps" id = "StepsInput">
                     <h2>Последовательность</h2>
                     {{#each RecipeParams.Sequence}}
                         <li>{{this}}</li>
+                        <p></p>
                     {{/each}}
                 </div>
             </div>

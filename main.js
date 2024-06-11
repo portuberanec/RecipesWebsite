@@ -33,23 +33,24 @@ for (let i = 0; i < STRArray.length - 1; i = i + 2) {
     const RecipeBaseData = fs.readFileSync("./public/local/" + RetArray[i+1] + "/BaseInfo.txt", 'utf-8');
 
     let RecipeBaseArray = RecipeBaseData.split("\r\n");
-    console.log(RecipeBaseArray);
+    //console.log(RecipeBaseArray);
     
     const RecipeIngredData = fs.readFileSync("./public/local/" + RetArray[i+1] + "/Ingred.txt", 'utf-8');
     
     let RecipeIngredArray = RecipeIngredData.split("\r\n");
-    console.log(RecipeIngredArray);
+    //console.log(RecipeIngredArray);
     
     const RecipeSeqData = fs.readFileSync("./public/local/" + RetArray[i+1] + "/Seq.txt", 'utf-8');
     
     let RecipeSeqArray = RecipeSeqData.split("\r\n");
-    console.log(RecipeSeqArray);
+    //console.log(RecipeSeqArray);
     
     var RecipeParams = {
         Title: RecipeBaseArray[0],
         Author: RecipeBaseArray[1],
         IMG: RecipeBaseArray[2],
         EnergyValue: [RecipeBaseArray[3], RecipeBaseArray[4], RecipeBaseArray[5], RecipeBaseArray[6]],
+        Desctiption: RecipeBaseArray[7],
         Ingredients: RecipeIngredArray,
         Sequence: RecipeSeqArray,
     };
@@ -70,8 +71,21 @@ for (let i = 0; i < STRArray.length - 1; i = i + 2) {
 
 UpdateData();
 
+const TopParamsArray = [];
+
+for (let i = 0; i < WebPagesArray.length; i++) {
+
+    var TopParams = {
+        Title: RecipeParamsArray[i].Title,
+        Desctiption: RecipeParamsArray[i].Desctiption,
+        IMG: RecipeParamsArray[i].IMG,
+    }
+    TopParamsArray.push(TopParams);
+}
+//console.log (TopParamsArray);
+
 app.get('/', (_, res) => {
-    res.render('index', {layout: 'main', WebPagesArray})
+    res.render('index', {layout: 'main', WebPagesArray, TopParamsArray})
 })
 
 app.listen(3000, () => console.log('Server started'))

@@ -3,7 +3,9 @@
 
 body {
     font-family: Inter, sans-serif;
-    display: flex; 
+    display: flex;
+    font-weight: 500;
+    font-size: large;
     flex-direction: column; 
     align-items: center; /* Центрирование содержимого по горизонтали */
     margin: 0;
@@ -43,6 +45,12 @@ body {
 .search, .categories {
     margin-bottom: 20px;
 }
+
+input[type=text]{
+    width:200px;
+ }
+
+
 .categories ul {
     list-style: none;
     padding: 0;
@@ -50,22 +58,51 @@ body {
 .categories ul li {
     margin-bottom: 10px;
 }
-.recipe {
+.recipe { /* необходимо для отображения элементов рядом в зависимости от их размера */
     display: flex;
     flex-wrap: wrap;
 }
+
 .recipe > div {
     box-sizing: border-box;
     margin: 5px;
     padding: 10px;
     background-color: #f9f9f9; /* Фон для наглядности */
 }
-.title, .author, .subscribe, .description, .steps {
+/*.title, .author, .subscribe, .description, .steps {
     width: 100%;
+}*/
+.BaseInfo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5ch;
+    grid-auto-rows: minmax(100px auto);
+    width: 100%;
+    align-items: center;
+    text-align: center;
 }
+
+
 .image, .ingredients, .nutrition {
     width: 48%;
 }
 .steps, .description {
-    width: 100%;
+    box-sizing: border-box;
+    left: 20%;
+    width: 70%;
+    border-left: 0ch;
+    margin: 5px;
+    padding: 0;
+    display: flexbox;
+    flex-wrap: nowrap;
+
+}
+
+p {
+    margin-bottom: 3em;
+}
+
+span {
+    align-self: center;
+    text-align: center;
 }

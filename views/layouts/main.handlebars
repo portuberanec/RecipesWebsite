@@ -25,6 +25,20 @@
                 {{/each}}
             </ul>
         </nav>
+            <!-- Основной контент -->
+        <main class="main-content">
+            <h2 class="top-5">Топ-5 блюд</h2> <!-- Заголовок "Топ-5 блюд" -->
+            
+            <!-- Один блок с рецептом -->
+            {{#each TopParamsArray}}
+            <div class="recipe">
+                <img src={{this.IMG}} alt="IMG"> <!-- Заставка для картинки -->
+                <div>
+                    <h3>{{this.Title}}</h3> <!-- Название блюда -->
+                    <p>{{this.Desctiption}}</p> <!-- Описание блюда -->
+                </div>
+            </div>
+            {{/each}}
     {{{body}}}
 </body>
 </html>
