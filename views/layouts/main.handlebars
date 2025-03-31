@@ -1,44 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Книга рецептов</title>
+    <title>Кулинарные рецепты - Главная</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap">
     <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body>
-    <!-- Шапка сайта -->
-    <header>
-        <img src="home_icon.png" alt="Главная" width="30" height="30"> <!-- Значок "Домой" -->
-        <h1>Кулинарные рецепты</h1> <!-- Название сайта -->
-        <img src="profile_icon.png" alt="Профиль" width="30" height="30"> <!-- Значок "Профиль" -->
+    <header class="header">
+        <h1>Кулинарные рецепты</h1>
+        <p>Найдите свои любимые блюда или поделитесь своими рецептами</p>
     </header>
 
-    <div class="content">
-        <!-- Боковая навигационная панель -->
-        <nav class="sidebar">
-            <input type="text" placeholder="Поиск"> <!-- Поле поиска -->
-            <h3>Категории</h3> <!-- Заголовок для категорий -->
-            <ul>
-                {{#each WebPagesArray}}
-                    <li><a href={{this}}>{{this}}</a></li>
-                {{/each}}
-            </ul>
-        </nav>
-            <!-- Основной контент -->
-        <main class="main-content">
-            <h2 class="top-5">Топ-5 блюд</h2> <!-- Заголовок "Топ-5 блюд" -->
-            
-            <!-- Один блок с рецептом -->
-            {{#each TopParamsArray}}
-            <div class="recipe">
-                <img src={{this.IMG}} alt="IMG"> <!-- Заставка для картинки -->
-                <div>
-                    <h3>{{this.Title}}</h3> <!-- Название блюда -->
-                    <p>{{this.Desctiption}}</p> <!-- Описание блюда -->
-                </div>
-            </div>
+    <nav class="navigation">
+        <ul class="navigation-list">
+            <li><a href="/">Главная</a></li>
+            {{#each NavigationItems}}
+                <li><a href="{{this.path}}">{{this.title}}</a></li>
             {{/each}}
-    {{{body}}}
+            <li><a href="/inputpage">Добавить рецепт</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section class="top-recipes">
+            <h2 class="section-title">Наши лучшие рецепты</h2>
+            
+            <div class="recipes-grid">
+                {{#each TopParamsArray}}
+                <div class="recipe-card">
+                    <div class="recipe-image" style="background-image: url('/images/{{this.IMG}}')"></div>
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">{{this.Title}}</h3>
+                        <p class="recipe-description">{{this.Description}}</p>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </section>
+
+        <a href="/inputpage" class="add-recipe-btn">Добавить свой рецепт</a>
+
+        {{{body}}}
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Кулинарные рецепты.</p>
+    </footer>
 </body>
 </html>

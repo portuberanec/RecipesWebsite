@@ -1,91 +1,156 @@
 import express from 'express'
 import { engine } from 'express-handlebars'
-import * as fs from "node:fs";
+import * as fs from "node:fs"
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const app = express()
-/*const fs = require('node:fs');*/
 
 app.engine('handlebars', engine())
 app.set('view engine', 'handlebars')
 app.set('views', './views')
+app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
-app.use(express.static('public'));
+// Data structures
+let RecipeParamsArray = []
+let WebPagesArray = []
+let IdPagesArray = []
 
-
-// чтение файла со всеми страницами и передача запроса для отображения страницы
-const data = fs.readFileSync("./public/Webpages_info.txt", 'utf-8');
-let STR = data.toString();
-STR = STR.replace(/\r\n/g, " - ");
-let STRArray = STR.split(" - ");
-/*STRArray.forEach(element => {
-    console.log(element);
-});*/
-
-const RetArray = STRArray;
-const RecipeParamsArray = [];
-const WebPagesArray = [];
-  //  console.log(STR.slice(0, STR.indexOf(' -')));   // выводим считанные данные
-
-
-  function UpdateData () {
-
-for (let i = 0; i < STRArray.length - 1; i = i + 2) {
-    const RecipeBaseData = fs.readFileSync("./public/local/" + RetArray[i+1] + "/BaseInfo.txt", 'utf-8');
-
-    let RecipeBaseArray = RecipeBaseData.split("\r\n");
-    //console.log(RecipeBaseArray);
+// Data initialization
+function initializeData() {
+  try {
+    const data = fs.readFileSync("./public/Webpages_info.txt", 'utf-8')
+    const STRArray = data.split(/\r?\n/).filter(line => line.trim() !== '')
     
-    const RecipeIngredData = fs.readFileSync("./public/local/" + RetArray[i+1] + "/Ingred.txt", 'utf-8');
-    
-    let RecipeIngredArray = RecipeIngredData.split("\r\n");
-    //console.log(RecipeIngredArray);
-    
-    const RecipeSeqData = fs.readFileSync("./public/local/" + RetArray[i+1] + "/Seq.txt", 'utf-8');
-    
-    let RecipeSeqArray = RecipeSeqData.split("\r\n");
-    //console.log(RecipeSeqArray);
-    
-    var RecipeParams = {
-        Title: RecipeBaseArray[0],
-        Author: RecipeBaseArray[1],
-        IMG: RecipeBaseArray[2],
-        EnergyValue: [RecipeBaseArray[3], RecipeBaseArray[4], RecipeBaseArray[5], RecipeBaseArray[6]],
-        Desctiption: RecipeBaseArray[7],
-        Ingredients: RecipeIngredArray,
-        Sequence: RecipeSeqArray,
-    };
-    
-    RecipeParamsArray.push(RecipeParams);
-    WebPagesArray.push(STRArray[i+1]);
-    //console.log(RetArray[i]);
-}
-}
+    RecipeParamsArray = []
+    WebPagesArray = []
+    IdPagesArray = []
 
-for (let i = 0; i < STRArray.length - 1; i = i + 2) {
-    app.get(RetArray[i], (req, res) => {
-    res.render(RetArray[i+1], {layout: 'recipe', RecipeParams: RecipeParamsArray[i/2], WebPagesArray});
-    //console.log(req);
-    //console.log(RecipeParamsArray, i);
-})
-}
+    for (let i = 0; i < STRArray.length; i += 2) {
+      const pagePath = STRArray[i]
+      const recipeId = STRArray[i + 1]
+      
+      try {
+        const baseInfo = fs.readFileSync(`./public/local/${recipeId}/BaseInfo.txt`, 'utf-8')
+        const ingredients = fs.readFileSync(`./public/local/${recipeId}/Ingred.txt`, 'utf-8')
+        const steps = fs.readFileSync(`./public/local/${recipeId}/Seq.txt`, 'utf-8')
 
-UpdateData();
+        const RecipeBaseArray = baseInfo.split(/\r?\n/)
+        const RecipeParams = {
+          Title: RecipeBaseArray[0],
+          Author: RecipeBaseArray[1],
+          IMG: RecipeBaseArray[2],
+          EnergyValue: RecipeBaseArray.slice(3, 7),
+          Description: RecipeBaseArray[7],
+          Ingredients: ingredients.split(/\r?\n/),
+          Sequence: steps.split(/\r?\n/),
+          ID: recipeId
+        }
 
-const TopParamsArray = [];
+        RecipeParamsArray.push(RecipeParams)
+        WebPagesArray.push(pagePath)
+        IdPagesArray.push(recipeId)
 
-for (let i = 0; i < WebPagesArray.length; i++) {
+        // Register dynamic routes
+        app.get(pagePath, (req, res) => {
+          res.render(recipeId, {
+            layout: 'recipe',
+            RecipeParams: RecipeParams,
+            WebPagesArray
+          })
+        })
 
-    var TopParams = {
-        Title: RecipeParamsArray[i].Title,
-        Desctiption: RecipeParamsArray[i].Desctiption,
-        IMG: RecipeParamsArray[i].IMG,
+      } catch (error) {
+        console.error(`Error loading recipe ${recipeId}:`, error)
+      }
     }
-    TopParamsArray.push(TopParams);
+  } catch (error) {
+    console.error('Initialization error:', error)
+  }
 }
-//console.log (TopParamsArray);
 
-app.get('/', (_, res) => {
-    res.render('index', {layout: 'main', WebPagesArray, TopParamsArray})
+// Add recipe functionality
+app.post('/add-recipe', async (req, res) => {
+  try {
+    const { title, author, energy, description, ingredients, steps } = req.body
+    const recipeId = `recipe_${Date.now()}`
+
+    // Create directory structure
+    fs.mkdirSync(`./public/local/${recipeId}`, { recursive: true })
+
+    // Create files
+    fs.writeFileSync(
+      `./public/local/${recipeId}/BaseInfo.txt`,
+      `${title}\n${author}\n${recipeId}.png\n${energy}\n${description}`
+    )
+
+    fs.writeFileSync(
+      `./public/local/${recipeId}/Ingred.txt`,
+      Array.isArray(ingredients) ? ingredients.join('\n') : ingredients
+    )
+
+    fs.writeFileSync(
+      `./public/local/${recipeId}/Seq.txt`,
+      Array.isArray(steps) ? steps.join('\n') : steps
+    )
+
+    // Update Webpages_info
+    fs.appendFileSync(
+      './public/Webpages_info.txt',
+      `\n/add-${recipeId}\n${recipeId}`
+    )
+    
+    fs.writeFileSync(`./views/${recipeId}.handlebars`, '');
+
+    // Reinitialize data
+    initializeData()
+    res.redirect('/')
+
+  } catch (error) {
+    console.error('Error saving recipe:', error)
+    res.status(500).send('Ошибка сохранения рецепта')
+  }
 })
 
-app.listen(3000, () => console.log('Server started'))
+// Routes
+app.get('/', (_, res) => {
+  const TopParamsArray = RecipeParamsArray.map(recipe => ({
+    Title: recipe.Title,
+    Description: recipe.Description,
+    IMG: recipe.IMG,
+    ID: recipe.ID
+  }))
+
+  const navigationItems = WebPagesArray.map((path, index) => ({
+    path,
+    title: RecipeParamsArray[index]?.Title || 'Новое блюдо'
+  }));
+  
+  res.render('index', {
+    layout: 'main',
+    NavigationItems: navigationItems,
+    TopParamsArray
+  })
+})
+
+app.get('/inputpage', (_, res) => {
+  res.render('inputpage', {
+    layout: 'input',
+    WebPagesArray,
+    RecipeParams: RecipeParamsArray[0] || {}
+  })
+})
+
+// Initialization
+initializeData()
+
+// Server start
+app.listen(3000, () => {
+  console.log('Server started on port 3000')
+  console.log('Available recipes:', WebPagesArray)
+})

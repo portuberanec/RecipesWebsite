@@ -1,98 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Книга рецептов</title>
-    <link rel="stylesheet" type="text/css" href="css/recipe.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{RecipeParams.Title}}</title>
+  <link rel="stylesheet" type="text/css" href="css/recipe.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap">
 </head>
 <body>
-       <div class="header">
-            <a href="/">
-                <img src="home-icon.png" alt="Главная" width="30" height="30"> <!-- Значок "Домой" -->
-            </a>
-            <span>Кулинарные рецепты</span>
-        <div>
-            <a href="profile.html">
-                <img src="user-icon.png" alt="Профиль">
-            </a>
-        </div>
-    </div>
-    
-    <div class="container">
-        <!-- Боковое меню с поиском и категориями -->
-        <div class="sidebar">
-            <div class="search">
-                <label for="search">Поиск</label>
-                <input type="text" id="search">
-            </div>
-            <div class="categories">
-                <label for="categories">Категории</label>
-                <ul>
-                {{#each WebPagesArray}}
-                    <li><a href={{this}}>{{this}}</a></li>
-                {{/each}}
-                </ul>
-            </div>
-        </div>
-        <!-- Основное содержание страницы рецепта -->
-        <div class="content">
-            <div class="recipe">
-                <!-- Название блюда -->
-                <div class = "BaseInfo">
-                    <div class = "title">
-                        <h1 id = "TitleInput">{{RecipeParams.Title}}</h1>
-                    </div>
-                    <div class="subscribe">
-                        <!-- Контактная информация автора -->
-                        <span class="author">{{RecipeParams.Author}}</span>
-                        <!-- Кнопка подписаться -->
-                        <button>Подписаться</button>
-                    </div>
-                </div>
-                
-                <!-- Блок изображения или видео, подключить src и в него добавить параметр {{RecipeParams.IMG}} -->
-                <div class="image">
-                    <img src={{RecipeParams.IMG}}>
-                </div>
-                
-                <!-- Блок энергетической ценности, нужен цикл -->
-                <div class="nutrition">
-                    <h2>Энергетическая ценность</h2>
-                    <ul id = "NutritionListInput">
-                        {{#each RecipeParams.EnergyValue}}
-                        <li>{{this}}</li>
-                        {{/each}}
-                    </ul>
-                </div>
-                
-                <!-- Блок ингредиентов, нужен цикл -->
-                <div class="ingredients">
-                    <h2>Ингредиенты</h2>
-                    <ul id = "IngredientsListInput">
-                        {{#each RecipeParams.Ingredients}}
-                        <li>{{this}}</li>
-                        {{/each}}
-                    </ul>
-                </div>
-                
-                <!-- Описание рецепта -->
-                <div class="description">
-                    <h2>Описание</h2>
-                    {{RecipeParams.Desctiption}}
-                </div>
-                
-                <!-- Последовательность действий, нужен цикл -->
-                <div class="steps" id = "StepsInput">
-                    <h2>Последовательность</h2>
-                    {{#each RecipeParams.Sequence}}
-                        <li>{{this}}</li>
-                        <p></p>
-                    {{/each}}
-                </div>
-            </div>
-        </div>
-    </div>
-    {{{body}}}
+  <!-- Заголовок -->
+  <header class="header">
+    <h1>{{RecipeParams.Title}}</h1>
+  </header>
+
+      <nav class="navigation">
+        <ul class="navigation-list">
+            <li><a href="/">Главная</a></li>
+            <li><a href="/inputpage">Добавить рецепт</a></li>
+        </ul>
+    </nav>
+
+  
+
+  <!-- Основное содержимое -->
+  <main class="container">
+    <!-- Информация о рецепте -->
+    <article class="BaseInfo">
+      <!-- Изображение -->
+      <section class="recipe-image-section">
+      {{#if RecipeParams.IMG}}
+        <img src="/images/{{RecipeParams.IMG}}" class="recipe-image" alt="{{RecipeParams.Title}}">
+      {{/if}}
+      </section>
+
+      <p></p>
+
+      <!-- Энергетическая ценность -->
+      {{#if RecipeParams.EnergyValue}}
+      <div class="nutrition">
+        <h2>Энергетическая ценность:</h2>
+        <ul>
+          {{#each RecipeParams.EnergyValue}}
+          <li>{{this}}</li>
+          {{/each}}
+        </ul>
+      </div>
+      {{/if}}
+    </article>
+
+    <p></p>
+
+      <!-- Ингредиенты -->
+      {{#if RecipeParams.Ingredients}}
+      <div class="ingredients">
+        <h2>Ингредиенты:</h2>
+        <ul>
+          {{#each RecipeParams.Ingredients}}
+          <li>{{this}}</li>
+          {{/each}}
+        </ul>
+      </div>
+      {{/if}}
+
+      <p></p>
+
+
+    <!-- Описание и шаги приготовления -->
+    {{#if RecipeParams.Description}}
+    <section class="description steps">
+      <h2>Описание:</h2>
+      {{RecipeParams.Description}}
+    </section>
+    {{/if}}
+
+    <p></p>
+
+    {{#if RecipeParams.Sequence}}
+    <section class="steps-list steps">
+      <h2>Шаги приготовления:</h2>
+      {{#each RecipeParams.Sequence}}
+      <p>{{this}}</p>
+      {{/each}}
+    </section>
+    {{/if}}
+
+  </main>
+
+  <!-- Подвал -->
+  <footer class="footer">
+    &copy; 2025 Рецепты для здоровья.
+  </footer>
+
 </body>
 </html>
