@@ -124,12 +124,13 @@ app.post('/add-recipe', async (req, res) => {
 
 // Routes
 app.get('/', (_, res) => {
-  const TopParamsArray = RecipeParamsArray.map(recipe => ({
+  const TopParamsArray = RecipeParamsArray.map((recipe, index) => ({
     Title: recipe.Title,
     Description: recipe.Description,
     IMG: recipe.IMG,
-    ID: recipe.ID
-  }))
+    ID: recipe.ID,
+    path: WebPagesArray[index]
+  }));
 
   const navigationItems = WebPagesArray.map((path, index) => ({
     path,

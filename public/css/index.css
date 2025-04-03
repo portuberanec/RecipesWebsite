@@ -156,3 +156,13 @@ body {
   text-align: center;
 }
 
+.recipe-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.2s;
+}
+
+.recipe-link:hover .recipe-card {
+  transform: translateY(-5px);
+}

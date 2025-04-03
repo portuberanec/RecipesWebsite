@@ -133,6 +133,12 @@ body {
   color: #333;
 }
 
+.image-link {
+  display: block;
+  height: 200px;
+  position: relative;
+}
+
 .recipe-description {
   color: #666;
   font-size: 0.9rem;
