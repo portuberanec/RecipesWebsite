@@ -77,7 +77,7 @@ function initializeData() {
 // Add recipe functionality
 app.post('/add-recipe', async (req, res) => {
   try {
-    const { title, author, energy, description, ingredients, steps } = req.body
+    const { title, author, energy, description, ingredients, steps, imageUrl} = req.body
     const recipeId = `recipe_${Date.now()}`
 
     // Create directory structure
@@ -88,6 +88,11 @@ app.post('/add-recipe', async (req, res) => {
       `./public/local/${recipeId}/BaseInfo.txt`,
       `${title}\n${author}\n${recipeId}.png\n${energy}\n${description}`
     )
+
+    fs.writeFileSync(
+      `./public/local/${recipeId}/BaseInfo.txt`,
+      `${title}\n${author}\n${imageUrl}\n${energy}\n${description}`
+    );
 
     fs.writeFileSync(
       `./public/local/${recipeId}/Ingred.txt`,
